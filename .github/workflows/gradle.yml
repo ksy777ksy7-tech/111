@@ -1,0 +1,25 @@
+name: Java CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Start app
+        run: java -jar ./artifacts/app-order.jar &
+
+      - name: Grant execute permission
+        run: chmod +x gradlew
+
+      - name: Run tests
+        run: ./gradlew test
