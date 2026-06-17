@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,11 +27,16 @@ public class OrderTest extends BaseTest {
         driver.findElement(By.cssSelector("button[type='button']"))
                 .click();
 
-        // 5. Проверяем успех
-        boolean successVisible = driver.findElement(
+        // 5. Проверяем успех (видимость + текст)
+        WebElement successMessage = driver.findElement(
                 By.cssSelector("[data-test-id='order-success']")
-        ).isDisplayed();
+        );
 
-        assertTrue(successVisible);
+        assertTrue(successMessage.isDisplayed());
+
+        assertEquals(
+                "Ваша заявка успешно отправлена!",
+                successMessage.getText().trim()
+        );
     }
 }
